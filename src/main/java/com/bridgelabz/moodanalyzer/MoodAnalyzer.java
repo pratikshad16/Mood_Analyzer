@@ -7,15 +7,19 @@ public class MoodAnalyzer {
         this.message = message;
     }
 
-    public String analyzeMood() {
-        try {
+    public String analyzeMood() throws MoodAnalysisException {
+        try
+        {
+            if(message.length() == 0)
+            {
+                throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_EMPTY,"please enter valid message");
+            }
             if (message.contains("Sad"))
                 return "Sad";
             else
                 return "Happy";
         } catch (NullPointerException e) {
-            return "Happy";
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_NULL,"please enter valid message");
         }
     }
 }
-
